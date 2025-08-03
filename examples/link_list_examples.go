@@ -50,17 +50,24 @@ func deleteNthNodeFromEnd[T any](head *collections.LinkedListNode[T], n int) *co
 
 	// Now end is n steps ahead
 
+	if end.Next == nil {
+		// which means either there is only a single element or n is equal to length of LinkList, which means delete the 0th node.
+		head = start.Next
+		return head
+	}
+
 	for end.Next != nil {
 		end = end.Next
 		start = start.Next
 	}
 
 	// end has reached the last.N	// end has reached the last.Next.
-	if start == end {
-		// this means that there is either only single node & n is 1
-		head = nil
+	// if start == end {
+	// 	// this means that there is either only single node & n is 1
+	// 	head = nil
 
-	}
+	// }
+
 	if start.Next != nil {
 		start.Next = start.Next.Next
 	}
