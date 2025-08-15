@@ -50,15 +50,21 @@ func (bst *BSTNode[T]) Len() int {
 	return bst.len(0)
 }
 
-func (bst *BSTNode[T]) Inorder(collector []T) []T {
+func (bst *BSTNode[T]) inorder(collector []T) []T {
 	if bst.Left != nil {
-		collector = bst.Left.Inorder(collector)
+		collector = bst.Left.inorder(collector)
 	}
 	collector = append(collector, bst.Value)
 	if bst.Right != nil {
-		collector = bst.Right.Inorder(collector)
+		collector = bst.Right.inorder(collector)
 	}
 	return collector
+}
+
+func (bst *BSTNode[T]) Inorder() []T {
+  collector := make([]T, 0)
+  collector = bst.inorder(collector)
+  return collector
 }
 
 func ConvSliceToBST[T constraints.Ordered](lst []T) *BSTNode[T] {

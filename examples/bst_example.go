@@ -5,19 +5,16 @@ import (
 	"github.com/siddharth-kulshrestha/go-ds/collections"
 )
 
-func bstInsertExample() {
+func bstInsertAndThenInorder() {
 	lst := []int{5, 6, 4, 2, 1, 10}
-	fmt.Println("BST List: ", lst)
+  fmt.Println("Input list: ", lst)
 	node := collections.ConvSliceToBST(lst)
-	fmt.Println(node)
-  fmt.Println(node.Len())
-  op := make([]int, 0)
-  op = node.Inorder(op)
+  op := node.Inorder()
   fmt.Println(op)
-  
-
 }
 
+
+
 func init() {
-	RegisterRunner(bstInsertExample, "BST Insert Example")
+	RegisterRunner(bstInsertAndThenInorder, "BST Insert Example")
 }
