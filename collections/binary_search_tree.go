@@ -62,9 +62,43 @@ func (bst *BSTNode[T]) inorder(collector []T) []T {
 }
 
 func (bst *BSTNode[T]) Inorder() []T {
-  collector := make([]T, 0)
-  collector = bst.inorder(collector)
-  return collector
+	collector := make([]T, 0)
+	collector = bst.inorder(collector)
+	return collector
+}
+
+func (bst *BSTNode[T]) postorder(collector []T) []T {
+	if bst.Left != nil {
+		collector = bst.Left.postorder(collector)
+	}
+	if bst.Right != nil {
+		collector = bst.Right.postorder(collector)
+	}
+	collector = append(collector, bst.Value)
+	return collector
+}
+
+func (bst *BSTNode[T]) preorder(collector []T) []T {
+	collector = append(collector, bst.Value)
+	if bst.Left != nil {
+		collector = bst.Left.preorder(collector)
+	}
+	if bst.Right != nil {
+		collector = bst.Right.preorder(collector)
+	}
+	return collector
+}
+
+func (bst *BSTNode[T]) Preorder() []T {
+	collector := make([]T, 0)
+	collector = bst.preorder(collector)
+	return collector
+}
+
+func (bst *BSTNode[T]) Postorder() []T {
+	collector := make([]T, 0)
+	collector = bst.postorder(collector)
+	return collector
 }
 
 func ConvSliceToBST[T constraints.Ordered](lst []T) *BSTNode[T] {
