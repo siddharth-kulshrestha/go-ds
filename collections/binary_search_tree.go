@@ -140,6 +140,46 @@ func (bst *BSTNode[T]) height(ht int) int {
 	return max + 1
 }
 
+func (bst *BSTNode[T]) isComplete(height int) (bool, int) {
+	var lisComplete, risComplete bool = true, true
+	var lht, rht int
+	if bst.Left == nil && bst.Right == nil {
+		return true, height + 1
+	}
+	if bst.Left != nil {
+		lisComplete, lht = bst.Left.isComplete(height)
+	}
+	if bst.Right != nil {
+		risComplete, rht = bst.Right.isComplete(height)
+	}
+
+	ht := max(lht, rht)
+	if ht == 1 {
+		if bst.Left == nil {
+			fmt.Println("is false :: h==1")
+			fmt.Println(ht <= 1)
+			return false, ht + 1
+		}
+		return true, ht + 1
+	}
+
+	if bst.Left == nil || bst.Right == nil {
+		return false, ht + 1
+	}
+
+	if lisComplete && risComplete {
+		return true, ht + 1
+	}
+	fmt.Println("isFalse ::: ")
+	fmt.Println(ht)
+	return false, ht + 1
+}
+
+func (bst *BSTNode[T]) IsComplete() bool {
+	ic, _ := bst.isComplete(0)
+	return ic
+}
+
 func (bst *BSTNode[T]) Height() int {
 	return bst.height(0)
 }
